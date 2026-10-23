@@ -7,9 +7,9 @@
     "start": "nodemon --watch src --exec ts-node src/server.ts",
     "build": "tsc",
     "serve": "node build/server.js",
-    "test": "jasmine",
+    "test": "npm run build && jasmine",
     "lint": "eslint src",
-    "prettier": "prettier --write \"src/**/*.ts\""
+    "format": "prettier --write \"src/**/*.ts\""
   },
   "keywords": [],
   "author": "",

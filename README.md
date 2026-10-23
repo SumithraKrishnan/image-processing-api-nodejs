@@ -158,7 +158,7 @@ npm run lint
 
 # Formatting
 Format all TypeScript files using Prettier:
-npm run prettier
+npm run format
 
 # Query Parameters
 
@@ -172,9 +172,12 @@ Example:
 http://localhost:5000/api/images?filename=palmtunnel&width=500&height=250
  
 # Error Responses
-The API returns:
+The API returns appropriate HTTP status codes for invalid requests:
 
-400 Bad Request when filename, width, or height is missing or invalid
-404 Not Found when the requested original image does not exist
-500 Internal Server Error when image processing fails
+400 Bad Request when the filename is missing.
+400 Bad Request when width or height is missing.
+400 Bad Request when width or height is not a number.
+400 Bad Request when width or height is zero or negative.
+404 Not Found when the requested original image does not exist.
+500 Internal Server Error when image processing fails.
 

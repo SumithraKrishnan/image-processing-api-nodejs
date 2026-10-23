@@ -1,15 +1,23 @@
 import fs from 'fs';
 import resizeImage from '../utilities/imageProcessor';
 
-describe('Image Processing Test', () => {
-  it('should create a resized image', async () => {
-    await resizeImage(
-      'images/full/fjord.jpg',
-      'images/thumb/test-fjord.jpg',
-      200,
-      200,
-    );
+describe('Image Processing Utility Tests', () => {
+  it('creates a resized image with valid inputs', async () => {
+    const outputPath = 'images/thumb/test-fjord.jpg';
 
-    expect(fs.existsSync('images/thumb/test-fjord.jpg')).toBeTrue();
+    await resizeImage('images/full/fjord.jpg', outputPath, 200, 200);
+
+    expect(fs.existsSync(outputPath)).toBeTrue();
+  });
+
+  it('throws an error for an invalid input image', async () => {
+    await expectAsync(
+      resizeImage(
+        'images/full/doesnotexist.jpg',
+        'images/thumb/invalid.jpg',
+        200,
+        200,
+      ),
+    ).toBeRejected();
   });
 });

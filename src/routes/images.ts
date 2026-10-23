@@ -11,11 +11,16 @@ images.get('/', async (req: Request, res: Response): Promise<void> => {
   const height = Number(req.query.height);
 
   // Validate query parameters
-  if (!filename || !width || !height) {
-    res.status(400).send('Please provide filename, width and height');
+  if (
+    !filename ||
+    !Number.isFinite(width) ||
+    !Number.isFinite(height) ||
+    width <= 0 ||
+    height <= 0
+  ) {
+    res.status(400).send('Please provide a valid filename, width and height');
     return;
   }
-
   const inputPath = path.resolve('images/full', `${filename}.jpg`);
 
   const outputPath = path.resolve(
@@ -37,7 +42,7 @@ images.get('/', async (req: Request, res: Response): Promise<void> => {
 
     // Return the resized image
     res.sendFile(outputPath);
-  } catch{
+  } catch {
     res.status(500).send('Error processing image');
   }
 });
